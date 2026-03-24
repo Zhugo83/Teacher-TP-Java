@@ -5,6 +5,8 @@ import com.example.teacherapp.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/teacher")
 public class TeacherController {
@@ -13,14 +15,22 @@ public class TeacherController {
     TeacherService teacherService;
 
     @PostMapping("/add")
-    public String addTeacher(@RequestBody Teacher teacher) {
-        return "OH my god";
+    public Teacher addTeacher(@RequestBody Teacher teacher) {
+        return teacherService.addTeacher(teacher);
     }
 
-    //@GetMapping
-    //public String getTeacherById(@RequestParam String id)
+    @GetMapping("/get")
+    public List<Teacher> findAllTeachers(){
+        return teacherService.findAllTeachers();
+    }
 
-    //@PutMapping
+    @PutMapping("/update")
+    public Teacher updateTeacher(@RequestParam(name = "id") Integer id, @RequestBody Teacher teacher) {
+        return teacherService.updateTeacher(id, teacher);
+    }
 
-    //@DeleteMapping
+    @DeleteMapping("/delete")
+    public void deleteTeacher(@RequestParam(name = "id") Integer id) {
+        teacherService.deleteTeacher(id);
+    }
 }
